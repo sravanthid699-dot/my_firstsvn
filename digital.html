@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Digital Learning Platform</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+.card-body ul{
+    text-align:left;
+    width:80%;
+    margin:auto;
+    line-height:35px;
+    font-size:22px;
+}
+
+.card-body li{
+    margin-bottom:10px;
+}
+        .image {
+  display: flex; 
+  align-items: center; 
+  gap: 20px;
+  margin-top:30px;
+}
+
+        body{
+            margin:0;
+            padding:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f5f5f5;
+        }
+
+        .teach{
+            text-align:center;
+            height:300px;
+            width:100%;
+            background-color:lightgreen;
+        }
+
+        .topic{
+            width:100%;
+            min-height:50px;
+            background-color:black;
+        }
+
+        .image{
+            width:130px;
+            height:130px;
+        }
+
+        .head{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:20px;
+        }
+
+        .main{
+            background-color:green;
+            width:100%;
+            min-height:300px;
+            padding:20px;
+        }
+
+        li{
+            list-style:none;
+        }
+
+        .home{
+            text-align:center;
+            padding:20px;
+        }
+
+        .home img{
+            width:500px;
+            max-width:100%;
+            height:300px;
+            border-radius:10px;
+        }
+
+        .course{
+            display:flex;
+            justify-content:space-between;
+            padding:15px 10px;
+            border-bottom:1px solid #bde7d4;
+            background:white;
+            margin-bottom:5px;
+        }
+
+        .course span{
+            color:green;
+            font-size:14px;
+        }
+
+        .formbox{
+            margin-top:25px;
+            border:1px solid #bde7d4;
+            padding:20px;
+            border-radius:5px;
+            background:#f9fffc;
+        }
+
+        .formbox h3{
+            margin-bottom:15px;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:3px;
+        }
+
+        button{
+            background:#009688;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            cursor:pointer;
+            border-radius:3px;
+        }
+
+        button:hover{
+            background:#00796b;
+        }
+
+        .container-box{
+            width:100%;
+            min-height:1500px;
+            background-color:lightyellow;
+            padding:20px;
+        }
+
+        /* QUIZ CSS */
+
+        .quiz-container{
+            width:500px;
+            max-width:95%;
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 20px rgba(0,0,0,0.4);
+            margin:30px auto;
+        }
+
+        .question{
+            font-size:22px;
+            margin-bottom:20px;
+            font-weight:bold;
+        }
+
+        .option{
+            background:#f1f1f1;
+            padding:15px;
+            margin:10px 0;
+            border-radius:10px;
+            cursor:pointer;
+            transition:0.3s;
+            border:2px solid transparent;
+        }
+
+        .option:hover{
+            background:#dbeafe;
+            border-color:#2563eb;
+        }
+
+        .correct{
+            background:#4CAF50 !important;
+            color:white;
+        }
+
+        .wrong{
+            background:#f44336 !important;
+            color:white;
+        }
+
+        .score{
+            text-align:center;
+            font-size:24px;
+            color:green;
+            font-weight:bold;
+        }
+
+        .card{
+            width:60rem;
+            max-width:95%;
+            margin:40px auto;
+            height:600px;
+            padding:100px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+
+        <h1 style="text-align:center; color:white">
+            Digital Learning Platform
+        </h1>
+
+        <h2 style="text-align:center; color:white">
+            भारत में डिजिटल लर्निंग प्लेटफॉर्म
+        </h2>
+
+        <div class="head">
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Emblem_of_India_%28navy_blue%29.svg"
+                 class="image">
+
+            <ul>
+                <li><h3>भारत सरकार</h3></li>
+                <li><h2>GOVERNMENT OF</h2></li>
+                <li><h2 style="color:blue">INDIA</h2></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="topic">
+
+        <ul class="nav justify-content-center">
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="home()">Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="coursebtn()">Courses</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="quizebtn()">Quizzes</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="teacherbtn()">Teacher Learning</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="parentbtn()">Parent Dashboard</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="innovativebtn()">Innovation</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="loginbtn()">Login</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" onclick="aboutbtn()">About</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div id="homebtn"></div>
+
+    <script>
+
+        /* HOME FUNCTION */
+
+        function home(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+
+            <div class="home">
+
+                <h1>Welcome to our Website</h1>
+
+                <h3>
+                    Helping rural students across quality and better education
+                </h3>
+
+                <img src="https://img.magnific.com/free-vector/large-school-building-scene_1308-32058.jpg?semt=ais_hybrid&w=740&q=80">
+
+                <h2 class="mt-4">Choose Language</h2>
+
+                <button type="button" class="btn btn-success">English</button>
+
+                <button type="button" class="btn btn-success">Telugu</button>
+
+                <button type="button" class="btn btn-success">Hindi</button>
+
+            </div>
+            `;
+        }
+
+        /* COURSE FUNCTION */
+
+        function coursebtn(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+
+            <div class="container-box">
+
+                <h1 style="text-align:center">Courses Offered</h1>
+
+                <div class="course">
+                    <p>Computer Basics</p>
+                    <span>[Open Resource]</span>
+                </div>
+
+                <div class="course">
+                    <p>Introduction About IOT</p>
+                    <span>[Open Resource]</span>
+                </div>
+
+                <div class="course">
+                    <p>Introduction About PYTHON</p>
+                    <span>[Open Resource]</span>
+                </div>
+
+                <div class="course">
+                    <p>OOPS Concept On JAVA</p>
+                    <span>[Open Resource]</span>
+                </div>
+
+                <div class="formbox">
+
+                    <h2>Add New Course</h2>
+
+                    <input type="text" placeholder="Course Name">
+
+                    <input type="text" placeholder="Duration Time">
+
+                    <button class="btn btn-primary">Submit</button>
+
+                </div>
+
+            </div>
+            `;
+        }
+
+        /* QUIZ FUNCTION */
+
+        function quizebtn(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+
+            <div class="quiz-container">
+
+                <h1>💻 Computer Science Quiz</h1>
+
+                <div id="quiz">
+
+                    <div class="question" id="question"></div>
+
+                    <div class="option" onclick="checkAnswer(this)" id="option1"></div>
+
+                    <div class="option" onclick="checkAnswer(this)" id="option2"></div>
+
+                    <div class="option" onclick="checkAnswer(this)" id="option3"></div>
+
+                    <div class="option" onclick="checkAnswer(this)" id="option4"></div>
+
+                    <button onclick="nextQuestion()">Next Question</button>
+
+                </div>
+
+            </div>
+            `;
+
+            currentQuestion = 0;
+            score = 0;
+
+            loadQuestion();
+        }
+
+        /* QUIZ DATA */
+
+        const quizData = [
+
+            {
+                question:"What does CPU stand for?",
+                options:[
+                    "Central Processing Unit",
+                    "Computer Personal Unit",
+                    "Central Program Utility",
+                    "Control Processing User"
+                ],
+                answer:"Central Processing Unit"
+            },
+
+            {
+                question:"Which language is used for web styling?",
+                options:[
+                    "HTML",
+                    "Python",
+                    "CSS",
+                    "Java"
+                ],
+                answer:"CSS"
+            },
+
+            {
+                question:"What is the brain of the computer?",
+                options:[
+                    "Keyboard",
+                    "Monitor",
+                    "CPU",
+                    "Mouse"
+                ],
+                answer:"CPU"
+            },
+
+            {
+                question:"Which data structure uses FIFO?",
+                options:[
+                    "Stack",
+                    "Queue",
+                    "Tree",
+                    "Graph"
+                ],
+                answer:"Queue"
+            },
+
+            {
+                question:"Which company developed Java?",
+                options:[
+                    "Microsoft",
+                    "Sun Microsystems",
+                    "Google",
+                    "Apple"
+                ],
+                answer:"Sun Microsystems"
+            }
+
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        /* LOAD QUESTION */
+
+        function loadQuestion(){
+
+            resetOptions();
+
+            let currentQuiz = quizData[currentQuestion];
+
+            document.getElementById("question").innerText =
+                currentQuiz.question;
+
+            document.getElementById("option1").innerText =
+                currentQuiz.options[0];
+
+            document.getElementById("option2").innerText =
+                currentQuiz.options[1];
+
+            document.getElementById("option3").innerText =
+                currentQuiz.options[2];
+
+            document.getElementById("option4").innerText =
+                currentQuiz.options[3];
+        }
+
+        /* CHECK ANSWER */
+
+        function checkAnswer(selected){
+
+            let answer = quizData[currentQuestion].answer;
+
+            const options = document.querySelectorAll(".option");
+
+            options.forEach(option => {
+
+                option.style.pointerEvents = "none";
+
+                if(option.innerText === answer){
+                    option.classList.add("correct");
+                }
+
+            });
+
+            if(selected.innerText === answer){
+                score++;
+            }
+            else{
+                selected.classList.add("wrong");
+            }
+        }
+
+        /* NEXT QUESTION */
+
+        function nextQuestion(){
+
+            currentQuestion++;
+
+            if(currentQuestion < quizData.length){
+
+                loadQuestion();
+
+            }
+            else{
+
+                document.getElementById("quiz").innerHTML = `
+                
+                    <div class="score">
+
+                        🎉 Quiz Completed <br><br>
+
+                        Your Score: ${score} / ${quizData.length}
+
+                    </div>
+                `;
+            }
+        }
+
+        /* RESET OPTIONS */
+
+        function resetOptions(){
+
+            const options = document.querySelectorAll(".option");
+
+            options.forEach(option => {
+
+                option.classList.remove("correct","wrong");
+
+                option.style.pointerEvents = "auto";
+
+            });
+        }
+
+        /* TEACHER FUNCTION */
+
+        function teacherbtn(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+            
+            <div class="card card-custom text-center">
+
+                <div class="card-body">
+
+                    <h1>Teacher Learning Activities</h1>
+
+                    <ul>
+
+                        <li style="font-size:20px">
+                            * Enhance teacher effectiveness, pedagogical skills, and digital literacy.
+                        </li>
+
+                        <li style="font-size:20px">
+                            * Focus on creating child-centric, engaging learning experiences.
+                        </li>
+
+                        <li style="font-size:20px">
+                            * Target key skills such as classroom management, student engagement, and assessment.
+                        </li>
+
+                        <li style="font-size:20px">
+                            * Ensure teaching practices align with mandated standards and 21st-century skills.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+            `;
+        }
+
+        /* PARENT DASHBOARD */
+
+        function parentbtn(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+
+            <div class="container-box">
+
+                <h1 class="text-center">Parent Dashboard</h1>
+
+                <div class="card p-4">
+
+                    <h3>Student Progress</h3>
+
+                    <p>Attendance : 95%</p>
+
+                    <p>Quiz Performance : Excellent</p>
+
+                    <p>Course Completion : 80%</p>
+
+                </div>
+
+            </div>
+            `;
+        }
+
+        /* INNOVATION */
+
+        function innovativebtn(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+
+            <div class="container-box">
+
+                <h1 class="text-center">Innovation in Education</h1>
+
+                <div class="card p-4">
+
+                    <p>✔ Smart Classrooms</p>
+
+                    <p>✔ AI Based Learning</p>
+
+                    <p>✔ Virtual Labs</p>
+
+                    <p>✔ Online Assessments</p>
+
+                </div>
+
+            </div>
+            `;
+        }
+
+        /* LOGIN */
+
+        function loginbtn(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+
+            <div class="container-box">
+
+                <div class="card p-4 mx-auto" style="max-width:500px">
+
+                    <h1 class="text-center">Login</h1>
+
+                    <input type="text" placeholder="Enter Username">
+
+                    <input type="password" placeholder="Enter Password">
+
+                    <button class="btn btn-success">Login</button>
+
+                </div>
+
+            </div>
+            `;
+        }
+
+        /* ABOUT */
+
+        function aboutbtn(){
+
+            let homebtn = document.getElementById("homebtn");
+
+            homebtn.innerHTML = `
+
+            <div class="container-box">
+
+                <h1 class="text-center">About Us</h1>
+
+                <div class="card">
+
+                    <p>
+                        This Digital Learning Platform helps students across India
+                        to access quality education, quizzes, and innovative learning.
+                        Software Engineering colleges focus on the design, development, 
+                        and maintenance of software systems, blending computer science 
+                        theory with engineering principles. 
+                        They teach programming (Python, Java, C++), algorithms, project management,
+                        and system architecture to prepare students for careers as developers or system architects.
+                    </p>
+                    <div class="image">
+                    <image src="https://pinlearn.com/wp-content/uploads/2019/04/What-are-the-best-elearning-platforms-and-their-pros-and-cons.png" style="width:200px; height:200px;">
+<image src="https://www.gumlet.com/learn/content/images/2022/07/Elearning_platform.jpg" style="width:200px; height:200px">
+                </div>
+
+            </div>
+            `;
+        }
+
+    </script>
+
+</body>
+</html>
