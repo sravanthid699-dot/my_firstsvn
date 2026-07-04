@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sravanthi Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght:700;900&family=Fira+Code:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #12182b;
+            --bg-tertiary: #1a2234;
+            --accent-prime: #00ff88;
+            --accent-not-prime: #ff3366;
+            --accent-active: #00d4ff;
+            --accent-pointer: #ffd700;
+            --text-primary: #e8eaf0;
+            --text-secondary: #8b93a8;
+            --border-color: #2a3446;
+            --glow-prime: 0 0 20px rgba(0, 255, 136, 0.3);
+            --glow-active: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+
+        body {
+            font-family: strong;
+            
+            color: black;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color:pink;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid var(--accent-active);
+            
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+           background: linear-gradient(90deg, var(--accent-active), var(--accent-prime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+            position: relative;
+            animation: titleSlide 1s ease-out;
+        }
+
+        @keyframes titleSlide {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-active), var(--accent-prime));
+            animation: underlineGrow 1.5s ease-out 0.3s forwards;
+        }
+
+        @keyframes underlineGrow {
+            to { width: 100%; }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: black;
+            font-weight: 400;
+        }
+
+        .powered-by {
+            font-size: 0.85rem;
+            color: black;
+            margin-top: 0.3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Main Container */
+        .container {
+background-color:lightgray;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+ box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Control Panel */
+        .control-panel {
+          
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            
+        }
+
+        .control-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .control-label {
+            display: block;
+            font-size:20px;
+            color: black;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.8rem;
+            background: green;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: strong;
+            font-size: 20px;
+            
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-active);
+            
+        }
+
+        .input-field.invalid {
+            border-color: var(--accent-not-prime);
+            
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Approach Tabs */
+        .approach-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .approach-tab {
+            padding:15px;
+            background: lightgreen;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            color: black;
+            cursor: pointer;
+            
+            font-family: 'Fira Code', monospace;
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .approach-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            
+            transition: left 0.5s ease;
+        }
+
+        .approach-tab:hover::before {
+            left: 100%;
+        }
+
+        .approach-tab.active {
+            background: green;
+            border-color: var(--accent-active);
+            color: black;
+           
+        }
+
+        /* Buttons */
+        .btn {
+            background-color:lightgreen;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            
+            color:black;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(+2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        
+
+        .btn-primary.running {
+            background: var(--accent-not-prime);
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: lightgreen;
+            color: black:
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-active);
+            box-shadow: var(--glow-active);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: rippleEffect 0.6s ease-out;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--bg-tertiary);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border: 2px solid var(--border-color);
+        }
+
+        .switch.active {
+            background: var(--accent-active);
+            border-color: var(--accent-active);
+        }
+
+        .switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .switch.active::after {
+            transform: translateX(24px);
+        }
+
+        /* Speed Slider */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--accent-active);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-active);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--accent-active);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .speed-label {
+            font-size: 1.2rem;
+        }
+
+        /* Main Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Animation Panel */
+        .animation-panel {
+            background-color:lightblue;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            min-height: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel-title {
+            font-family: strong;
+            font-size: 30px;
+            color: black;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-title::before {
+            content: '▶';
+            color: var(--accent-prime);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        #animationCanvas {
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+
+        /* Number Line Visualization */
+        .number-line {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            justify-content: center;
+        }
+
+        .number-box {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .number-box.checking {
+            border-color: var(--accent-pointer);
+            background: rgba(255, 215, 0, 0.2);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--accent-pointer);
+        }
+
+        .number-box.divisor {
+            border-color: var(--accent-not-prime);
+            background: rgba(255, 51, 102, 0.2);
+            animation: foundDivisor 0.5s ease;
+        }
+
+        .number-box.non-divisor {
+            border-color: var(--accent-prime);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        @keyframes foundDivisor {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Call Stack Visualization */
+        .call-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            padding: 1rem;
+        }
+
+        .stack-frame {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            animation: stackPush 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes stackPush {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stack-frame.popping {
+            animation: stackPop 0.3s ease forwards;
+        }
+
+        @keyframes stackPop {
+            to {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+        }
+
+        .stack-frame.active {
+            border-color: var(--accent-active);
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: var(--glow-active);
+        }
+
+        .stack-frame-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-prime);
+            margin-bottom: 0.5rem;
+        }
+
+        .stack-params {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Sieve Grid */
+        .sieve-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .sieve-number {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .sieve-number.prime {
+            border-color: var(--accent-prime);
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: var(--glow-prime);
+            animation: glowPrime 0.5s ease;
+        }
+
+        @keyframes glowPrime {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .sieve-number.crossed {
+            border-color: var(--accent-not-prime);
+            background: rgba(255, 51, 102, 0.1);
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .sieve-number.crossed::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-not-prime);
+            transform: rotate(-45deg);
+        }
+
+        .sieve-number.current-prime {
+            border-color: var(--accent-pointer);
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 25px var(--accent-pointer);
+            animation: pulsePrime 1s ease infinite;
+        }
+
+        @keyframes pulsePrime {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Code Viewer */
+        .code-viewer {
+            background-color:lightgreen;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-height: 500px;
+            overflow-y: auto;
+
+        }
+
+        .code-viewer::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .code-viewer::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        .code-viewer::-webkit-scrollbar-thumb {
+            background: var(--accent-active);
+            border-radius: 4px;
+        }
+
+        .code-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.4rem 0.8rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .code-line:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .code-line.active {
+            background: rgba(0, 212, 255, 0.2);
+            border-left: 3px solid var(--accent-active);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .line-number {
+            color: black;
+            margin-right: 1.5rem;
+            user-select: none;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        .code-text {
+            color: black;
+        }
+
+        .code-text .keyword {
+            color: #ff79c6;
+        }
+
+        .code-text .function {
+            color: #50fa7b;
+        }
+
+        .code-text .number {
+            color: #bd93f9;
+        }
+
+        .code-text .operator {
+            color: #ff79c6;
+        }
+
+        .code-text .comment {
+            color: #6272a4;
+            font-style: italic;
+        }
+
+        /* Execution Trace */
+        .execution-trace {
+            background:gray;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .trace-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        .trace-table th {
+            background: lightpink;
+            padding: 0.8rem;
+            text-align: left;
+            color:black;
+            border-bottom: 2px solid var(--accent-active);
+        }
+
+        .trace-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .trace-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .trace-table tr.new-row {
+            animation: highlightRow 0.5s ease;
+        }
+
+        @keyframes highlightRow {
+            0% { background: rgba(0, 212, 255, 0.3); }
+            100% { background: transparent; }
+        }
+
+        /* Explanation Panel */
+        .explanation-panel {
+            background:lightblue;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .explanation-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color:black;
+            margin-bottom: 1rem;
+        }
+
+        .explanation-highlight {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Complexity Cards */
+        .complexity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .complexity-card {
+            background:lightgreen;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            
+        }
+
+        .complexity-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-active);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom:10px;
+        }
+
+        .card-title {
+            font-family: strong;
+            font-size: 20px;
+            color:black;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+font-weight:600;
+        }
+
+        .card-value {
+            font-family: 'Fira Code', monospace;
+            font-size: 20px;
+            color:black;
+            font-weight:600;
+        }
+
+        .card-description {
+            font-size: 0.85rem;
+            color:black;
+            margin-top: 0.8rem;
+            line-height: 1.6;
+font-weight:1000;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background:lightblue;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+           
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table th {
+            background: green;
+            padding: 1rem;
+            text-align: left;
+            color: black;
+            border-bottom: 2px solid var(--accent-active);
+            white-space: nowrap;
+font-weight:1000;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .comparison-table .approach-name {
+            color: blue;
+            font-weight: 600;
+        }
+
+        /* Result Display */
+        .result-display {
+            background:green;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .result-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .result-text.prime {
+            color:black;
+            text-shadow: 0 0 30px var(--accent-prime);
+            animation: resultPop 0.5s ease;
+        }
+
+        .result-text.not-prime {
+            color:red;
+            text-shadow: 0 0 30px var(--accent-not-prime);
+            animation: resultPop 0.5s ease;
+        }
+
+        @keyframes resultPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .result-details {
+            font-size: 1rem;
+            color:black;
+        }
+
+        /* Info Tooltips */
+        .info-tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            cursor: help;
+        }
+
+        .info-tooltip .tooltip-icon {
+            width: 18px;
+            height: 18px;
+            background: var(--accent-active);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color:black;
+            font-weight: bold;
+        }
+
+        .info-tooltip .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-tertiary);
+            color:black;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            width: 250px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .control-row {
+                flex-direction: column;
+            }
+
+            .approach-tabs {
+                flex-direction: column;
+            }
+
+            .complexity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            border-top: 3px solid var(--accent-active);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .message.success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent-prime);
+            color: var(--accent-prime);
+        }
+
+        .message.error {
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid var(--accent-not-prime);
+            color: var(--accent-not-prime);
+        }
+
+        /* Hide elements initially */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="main-title">Sravanthi Execution</h1>
+            <div class="subtitle">Prime Number Algorithms in C</div>
+            <div class="powered-by">⚡ In The Simple Way</div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="control-row">
+                <div class="control-group">
+                    <label class="control-label">Enter Number</label>
+                    <input type="number" id="numberInput" class="input-field" placeholder="e.g., 17" min="2" value="17">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Animation Speed</label>
+                    <div class="slider-container">
+                        <span class="speed-label">🐢</span>
+                        <input type="range" id="speedSlider" class="slider" min="1" max="10" value="5">
+                        <span class="speed-label">🚀</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Step-by-Step</label>
+                    <div class="toggle-switch">
+                        <div id="stepToggle" class="switch"></div>
+                        <span id="stepLabel">Off</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Approach Tabs -->
+            <div class="control-row">
+                <label class="control-label" style="width: 100%;">Select Algorithm Approach</label>
+            </div>
+            <div class="approach-tabs">
+                <div class="approach-tab active" data-approach="naive">Method 1: Naive (O(n))</div>
+                <div class="approach-tab" data-approach="optimized">Method 3: √n Optimization</div>
+                <div class="approach-tab" data-approach="even-skip">Method 4: Skip Evens</div>
+                <div class="approach-tab" data-approach="6k">Method 5: 6k±1</div>
+                <div class="approach-tab" data-approach="recursive">Method 6: Recursive</div>
+                <div class="approach-tab" data-approach="sieve">Method 9: Sieve</div>
+            </div>
+
+            <div class="control-row">
+                <button id="runBtn" class="btn btn-primary">▶ Run Algorithm</button>
+                <button id="resetBtn" class="btn btn-secondary">↻ Reset</button>
+            </div>
+        </div>
+
+        <!-- Result Display -->
+        <div id="resultDisplay" class="result-display hidden">
+            <div id="resultText" class="result-text"></div>
+            <div id="resultDetails" class="result-details"></div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Animation Panel -->
+            <div class="animation-panel">
+                <h2 class="panel-title">Algorithm Visualization</h2>
+                <div id="animationCanvas"></div>
+            </div>
+
+            <!-- Code Viewer -->
+            <div class="code-viewer">
+                <h2 class="panel-title">C Code</h2>
+                <div id="codeDisplay"></div>
+            </div>
+        </div>
+
+        <!-- Execution Trace -->
+        <div class="execution-trace">
+            <h2 class="panel-title">Execution Trace</h2>
+            <table class="trace-table">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Variable</th>
+                        <th>Value</th>
+                        <th>Condition</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody id="traceBody">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Explanation Panel -->
+        <div class="explanation-panel">
+            <h2 class="panel-title">Step Explanation</h2>
+            <div id="explanationText" class="explanation-text">
+                Select an approach and click "Run Algorithm" to see the step-by-step explanation.
+            </div>
+        </div>
+
+        <!-- Complexity Cards -->
+        <div class="complexity-grid">
+            <div class="complexity-card">
+                <div class="card-icon">⏱️</div>
+                <div class="card-title">Time Complexity</div>
+                <div id="timeComplexity" class="card-value">-</div>
+                <div class="card-description" id="timeDesc">How execution time grows with input size</div>
+            </div>
+            <div class="complexity-card">
+                <div class="card-icon">💾</div>
+                <div class="card-title">Space Complexity</div>
+                <div id="spaceComplexity" class="card-value">-</div>
+                <div class="card-description" id="spaceDesc">Memory usage required</div>
+            </div>
+            <div class="complexity-card">
+                <div class="card-icon">✨</div>
+                <div class="card-title">Best Use Case</div>
+                <div id="bestUse" class="card-value" style="font-size: 1rem;">-</div>
+                <div class="card-description" id="useDesc">When to use this approach</div>
+            </div>
+            <div class="complexity-card">
+                <div class="card-icon">💡</div>
+                <div class="card-title">Key Insight</div>
+                <div id="keyInsight" class="card-value" style="font-size: 1rem;">-</div>
+                <div class="card-description" id="insightDesc">What makes this approach unique</div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-table">
+            <h2 class="panel-title">Algorithm Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Approach</th>
+                        <th>Time Complexity</th>
+                        <th>Code Simplicity</th>
+                        <th>Best Case Scenario</th>
+                        <th>Interview Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="approach-name">Naive Trial Division</td>
+                        <td>O(n)</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Small numbers, learning</td>
+                        <td>⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td class="approach-name">√n Optimization</td>
+                        <td>O(√n)</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Single number check</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td class="approach-name">Skip Evens</td>
+                        <td>O(√n)</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Large odd numbers</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td class="approach-name">6k±1 Optimization</td>
+                        <td>O(√n)</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Very large numbers</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td class="approach-name">Recursive</td>
+                        <td>O(√n)</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Learning recursion</td>
+                        <td>⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td class="approach-name">Sieve of Eratosthenes</td>
+                        <td>O(n log log n)</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Multiple queries</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Algorithm data
+        const algorithms = {
+            naive: {
+                name: 'Naive Trial Division',
+                time: 'O(n)',
+                space: 'O(1)',
+                bestUse: 'Small numbers',
+                insight: 'Checks all divisors',
+                code: `#include <stdio.h>
+int main() {
+    int n, i, count = 0;
+    scanf("%d", &n);
+    for (i = 1; i <= n; i++) {
+        if (n % i == 0)
+            count++;
+    }
+    if (count == 2)
+        printf("Prime");
+    else
+        printf("Not Prime");
+    return 0;
+}`,
+                description: 'Counts all divisors from 1 to n'
+            },
+            optimized: {
+                name: '√n Optimization',
+                time: 'O(√n)',
+                space: 'O(1)',
+                bestUse: 'Single checks',
+                insight: 'Only check up to √n',
+                code: `#include <stdio.h>
+#include <math.h>
+int main() {
+    int n, i;
+    scanf("%d", &n);
+    if (n < 2) {
+        printf("Not Prime");
+        return 0;
+    }
+    for (i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) {
+            printf("Not Prime");
+            return 0;
+        }
+    }
+    printf("Prime");
+    return 0;
+}`,
+                description: 'Checks divisors only up to square root'
+            },
+            'even-skip': {
+                name: 'Skip Evens',
+                time: 'O(√n)',
+                space: 'O(1)',
+                bestUse: 'Large odd numbers',
+                insight: 'Skip even divisors',
+                code: `#include <stdio.h>
+int main() {
+    int n, i;
+    scanf("%d", &n);
+    if (n % 2 == 0) {
+        printf("Not Prime");
+        return 0;
+    }
+    for (i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) {
+            printf("Not Prime");
+            return 0;
+        }
+    }
+    printf("Prime");
+    return 0;
+}`,
+                description: 'Skips even numbers after checking 2'
+            },
+            '6k': {
+                name: '6k±1 Optimization',
+                time: 'O(√n)',
+                space: 'O(1)',
+                bestUse: 'Very large numbers',
+                insight: 'Primes are 6k±1',
+                code: `#include <stdio.h>
+int main() {
+    int n, i;
+    scanf("%d", &n);
+    if (n <= 3) {
+        printf("Prime");
+        return 0;
+    }
+    if (n % 2 == 0 || n % 3 == 0) {
+        printf("Not Prime");
+        return 0;
+    }
+    for (i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            printf("Not Prime");
+            return 0;
+        }
+    }
+    printf("Prime");
+    return 0;
+}`,
+                description: 'All primes > 3 are of form 6k±1'
+            },
+            recursive: {
+                name: 'Recursive Approach',
+                time: 'O(√n)',
+                space: 'O(√n)',
+                bestUse: 'Learning recursion',
+                insight: 'Recursive divisibility',
+                code: `#include <stdio.h>
+int isPrime(int n, int i) {
+    if (n <= 2)
+        return (n == 2);
+    if (n % i == 0)
+        return 0;
+    if (i * i > n)
+        return 1;
+    return isPrime(n, i + 1);
+}
+int main() {
+    int n;
+    scanf("%d", &n);
+    if (isPrime(n, 2))
+        printf("Prime");
+    else
+        printf("Not Prime");
+    return 0;
+}`,
+                description: 'Uses recursion to check divisibility'
+            },
+            sieve: {
+                name: 'Sieve of Eratosthenes',
+                time: 'O(n log log n)',
+                space: 'O(n)',
+                bestUse: 'Multiple queries',
+                insight: 'Mark all multiples',
+                code: `#include <stdio.h>
+int main() {
+    int n, i, j;
+    scanf("%d", &n);
+    int prime[n + 1];
+    for (i = 0; i <= n; i++)
+        prime[i] = 1;
+    prime[0] = prime[1] = 0;
+    for (i = 2; i * i <= n; i++) {
+        if (prime[i]) {
+            for (j = i * i; j <= n; j += i)
+                prime[j] = 0;
+        }
+    }
+    if (prime[n])
+        printf("Prime");
+    else
+        printf("Not Prime");
+    return 0;
+}`,
+                description: 'Pre-computes all primes up to n'
+            }
+        };
+
+        // State management
+        let state = {
+            currentApproach: 'naive',
+            number: 17,
+            speed: 5,
+            stepByStep: false,
+            isRunning: false,
+            currentStep: 0,
+            animationDelay: 1000
+        };
+
+        // DOM Elements
+        const numberInput = document.getElementById('numberInput');
+        const speedSlider = document.getElementById('speedSlider');
+        const stepToggle = document.getElementById('stepToggle');
+        const stepLabel = document.getElementById('stepLabel');
+        const runBtn = document.getElementById('runBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const approachTabs = document.querySelectorAll('.approach-tab');
+        const animationCanvas = document.getElementById('animationCanvas');
+        const codeDisplay = document.getElementById('codeDisplay');
+        const traceBody = document.getElementById('traceBody');
+        const explanationText = document.getElementById('explanationText');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const resultText = document.getElementById('resultText');
+        const resultDetails = document.getElementById('resultDetails');
+
+        // Initialize
+        init();
+
+        function init() {
+            updateComplexityCards();
+            displayCode();
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            // Number input
+            numberInput.addEventListener('input', (e) => {
+                state.number = parseInt(e.target.value) || 2;
+                if (state.number < 2) {
+                    numberInput.classList.add('invalid');
+                } else {
+                    numberInput.classList.remove('invalid');
+                }
+            });
+
+            // Speed slider
+            speedSlider.addEventListener('input', (e) => {
+                state.speed = parseInt(e.target.value);
+                state.animationDelay = 2000 - (state.speed * 180);
+            });
+
+            // Step toggle
+            stepToggle.addEventListener('click', () => {
+                state.stepByStep = !state.stepByStep;
+                stepToggle.classList.toggle('active');
+                stepLabel.textContent = state.stepByStep ? 'On' : 'Off';
+            });
+
+            // Approach tabs
+            approachTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    if (state.isRunning) return;
+                    
+                    approachTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    state.currentApproach = tab.dataset.approach;
+                    
+                    updateComplexityCards();
+                    displayCode();
+                    resetVisualization();
+                });
+            });
+
+            // Run button with ripple effect
+            runBtn.addEventListener('click', (e) => {
+                if (state.isRunning) return;
+                createRipple(e, runBtn);
+                runAlgorithm();
+            });
+
+            // Reset button
+            resetBtn.addEventListener('click', () => {
+                resetVisualization();
+            });
+        }
+
+        function createRipple(e, element) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            
+            const rect = element.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            element.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        function updateComplexityCards() {
+            const algo = algorithms[state.currentApproach];
+            
+            document.getElementById('timeComplexity').textContent = algo.time;
+            document.getElementById('spaceComplexity').textContent = algo.space;
+            document.getElementById('bestUse').textContent = algo.bestUse;
+            document.getElementById('keyInsight').textContent = algo.insight;
+            
+            document.getElementById('timeDesc').textContent = `Time grows as ${algo.time}`;
+            document.getElementById('spaceDesc').textContent = `Memory: ${algo.space}`;
+            document.getElementById('useDesc').textContent = algo.description;
+            document.getElementById('insightDesc').textContent = `Key: ${algo.insight}`;
+        }
+
+        function displayCode() {
+            const algo = algorithms[state.currentApproach];
+            const lines = algo.code.split('\n');
+            
+            codeDisplay.innerHTML = '';
+            
+            lines.forEach((line, index) => {
+                const lineDiv = document.createElement('div');
+                lineDiv.classList.add('code-line');
+                lineDiv.dataset.line = index;
+                
+                const lineNumber = document.createElement('span');
+                lineNumber.classList.add('line-number');
+                lineNumber.textContent = index + 1;
+                
+                const codeText = document.createElement('span');
+                codeText.classList.add('code-text');
+                codeText.innerHTML = syntaxHighlight(line);
+                
+                lineDiv.appendChild(lineNumber);
+                lineDiv.appendChild(codeText);
+                codeDisplay.appendChild(lineDiv);
+            });
+        }
+
+        function syntaxHighlight(code) {
+            return code;
+        }
+
+        function highlightCodeLine(lineIndex) {
+            const lines = codeDisplay.querySelectorAll('.code-line');
+            lines.forEach(line => line.classList.remove('active'));
+            
+            if (lineIndex >= 0 && lineIndex < lines.length) {
+                lines[lineIndex].classList.add('active');
+                lines[lineIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function addTraceRow(step, variable, value, condition, result) {
+            const row = document.createElement('tr');
+            row.classList.add('new-row');
+            row.innerHTML = `
+                <td>${step}</td>
+                <td>${variable}</td>
+                <td>${value}</td>
+                <td>${condition}</td>
+                <td>${result}</td>
+            `;
+            traceBody.appendChild(row);
+            
+            // Auto scroll to bottom
+            setTimeout(() => {
+                row.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }, 100);
+        }
+
+        function updateExplanation(text) {
+            explanationText.innerHTML = text;
+        }
+
+        function resetVisualization() {
+            animationCanvas.innerHTML = '';
+            traceBody.innerHTML = '';
+            resultDisplay.classList.add('hidden');
+            state.currentStep = 0;
+            state.isRunning = false;
+            runBtn.textContent = '▶ Run Algorithm';
+            runBtn.classList.remove('running');
+            updateExplanation('Select an approach and click "Run Algorithm" to see the step-by-step explanation.');
+            
+            const lines = codeDisplay.querySelectorAll('.code-line');
+            lines.forEach(line => line.classList.remove('active'));
+        }
+
+        async function runAlgorithm() {
+            if (state.number < 2) {
+                numberInput.classList.add('invalid');
+                return;
+            }
+
+            state.isRunning = true;
+            runBtn.textContent = '⏸ Running...';
+            runBtn.classList.add('running');
+            resetVisualization();
+
+            const approach = state.currentApproach;
+            
+            try {
+                switch(approach) {
+                    case 'naive':
+                        await runNaiveApproach();
+                        break;
+                    case 'optimized':
+                        await runOptimizedApproach();
+                        break;
+                    case 'even-skip':
+                        await runEvenSkipApproach();
+                        break;
+                    case '6k':
+                        await run6kApproach();
+                        break;
+                    case 'recursive':
+                        await runRecursiveApproach();
+                        break;
+                    case 'sieve':
+                        await runSieveApproach();
+                        break;
+                }
+            } catch (error) {
+                console.error('Algorithm error:', error);
+            } finally {
+                state.isRunning = false;
+                runBtn.textContent = '▶ Run Algorithm';
+                runBtn.classList.remove('running');
+            }
+        }
+
+        async function runNaiveApproach() {
+            const n = state.number;
+            let count = 0;
+            
+            updateExplanation(`Starting <span class="explanation-highlight">Naive Trial Division</span> for n = ${n}. We'll check all numbers from 1 to ${n}.`);
+            
+            // Create number line
+            animationCanvas.innerHTML = '<div class="number-line" id="numberLine"></div>';
+            const numberLine = document.getElementById('numberLine');
+            
+            for (let i = 1; i <= n; i++) {
+                const box = document.createElement('div');
+                box.classList.add('number-box');
+                box.textContent = i;
+                box.id = `num-${i}`;
+                numberLine.appendChild(box);
+            }
+            
+            highlightCodeLine(3);
+            await sleep(state.animationDelay);
+            
+            for (let i = 1; i <= n; i++) {
+                highlightCodeLine(4);
+                const box = document.getElementById(`num-${i}`);
+                box.classList.add('checking');
+                
+                updateExplanation(`Checking if ${n} is divisible by <span class="explanation-highlight">${i}</span>. Computing ${n} % ${i}...`);
+                await sleep(state.animationDelay);
+                
+                highlightCodeLine(5);
+                if (n % i === 0) {
+                    count++;
+                    box.classList.remove('checking');
+                    box.classList.add('divisor');
+                    
+                    addTraceRow(state.currentStep++, `i=${i}`, `count=${count}`, `${n} % ${i} == 0`, 'Divisor found!');
+                    updateExplanation(`${n} is divisible by ${i}! Remainder is 0. <span class="explanation-highlight">count = ${count}</span>`);
+                } else {
+                    box.classList.remove('checking');
+                    box.classList.add('non-divisor');
+                    
+                    addTraceRow(state.currentStep++, `i=${i}`, `count=${count}`, `${n} % ${i} != 0`, 'Not a divisor');
+                    updateExplanation(`${n} is NOT divisible by ${i}. Remainder is ${n % i}. Continue...`);
+                }
+                
+                await sleep(state.animationDelay);
+            }
+            
+            highlightCodeLine(7);
+            await sleep(state.animationDelay);
+            
+            const isPrime = count === 2;
+            showResult(isPrime, `Found ${count} divisors. A prime has exactly 2 divisors (1 and itself).`);
+        }
+
+        async function runOptimizedApproach() {
+            const n = state.number;
+            const limit = Math.floor(Math.sqrt(n));
+            
+            updateExplanation(`Starting <span class="explanation-highlight">√n Optimization</span> for n = ${n}. We only need to check up to √${n} = ${limit}.`);
+            
+            animationCanvas.innerHTML = '<div class="number-line" id="numberLine"></div>';
+            const numberLine = document.getElementById('numberLine');
+            
+            for (let i = 2; i <= limit; i++) {
+                const box = document.createElement('div');
+                box.classList.add('number-box');
+                box.textContent = i;
+                box.id = `num-${i}`;
+                numberLine.appendChild(box);
+            }
+            
+            highlightCodeLine(4);
+            await sleep(state.animationDelay);
+            
+            if (n < 2) {
+                showResult(false, `${n} is less than 2, so it's not prime.`);
+                return;
+            }
+            
+            highlightCodeLine(8);
+            for (let i = 2; i <= limit; i++) {
+                const box = document.getElementById(`num-${i}`);
+                box.classList.add('checking');
+                
+                updateExplanation(`Checking if ${n} is divisible by <span class="explanation-highlight">${i}</span>. If yes, we can exit early!`);
+                await sleep(state.animationDelay);
+                
+                highlightCodeLine(9);
+                if (n % i === 0) {
+                    box.classList.remove('checking');
+                    box.classList.add('divisor');
+                    
+                    addTraceRow(state.currentStep++, `i=${i}`, `limit=${limit}`, `${n} % ${i} == 0`, 'Divisor found!');
+                    updateExplanation(`Found divisor ${i}! Since ${n} = ${i} × ${n/i}, it's <span class="explanation-highlight">not prime</span>.`);
+                    
+                    await sleep(state.animationDelay);
+                    showResult(false, `Found divisor ${i}. Early exit optimization worked!`);
+                    return;
+                }
+                
+                box.classList.remove('checking');
+                box.classList.add('non-divisor');
+                addTraceRow(state.currentStep++, `i=${i}`, `limit=${limit}`, `${n} % ${i} != 0`, 'Continue');
+                await sleep(state.animationDelay);
+            }
+            
+            highlightCodeLine(13);
+            showResult(true, `No divisors found up to √${n}. It's prime!`);
+        }
+
+        async function runEvenSkipApproach() {
+            const n = state.number;
+            
+            updateExplanation(`Starting <span class="explanation-highlight">Skip Evens</span> approach for n = ${n}. First, check if it's even.`);
+            
+            highlightCodeLine(4);
+            await sleep(state.animationDelay);
+            
+            if (n === 2) {
+                showResult(true, `2 is the only even prime number!`);
+                return;
+            }
+            
+            if (n % 2 === 0) {
+                highlightCodeLine(5);
+                updateExplanation(`${n} is even! All even numbers except 2 are <span class="explanation-highlight">not prime</span>.`);
+                await sleep(state.animationDelay);
+                showResult(false, `${n} is divisible by 2.`);
+                return;
+            }
+            
+            animationCanvas.innerHTML = '<div class="number-line" id="numberLine"></div>';
+            const numberLine = document.getElementById('numberLine');
+            
+            const limit = Math.floor(Math.sqrt(n));
+            updateExplanation(`${n} is odd, so we'll check odd divisors from 3 to √${n} = ${limit}.`);
+            
+            for (let i = 3; i <= limit; i += 2) {
+                const box = document.createElement('div');
+                box.classList.add('number-box');
+                box.textContent = i;
+                box.id = `num-${i}`;
+                numberLine.appendChild(box);
+            }
+            
+            await sleep(state.animationDelay);
+            
+            highlightCodeLine(8);
+            for (let i = 3; i * i <= n; i += 2) {
+                const box = document.getElementById(`num-${i}`);
+                box.classList.add('checking');
+                
+                updateExplanation(`Checking odd number <span class="explanation-highlight">${i}</span>. Skipping all even numbers!`);
+                await sleep(state.animationDelay);
+                
+                highlightCodeLine(9);
+                if (n % i === 0) {
+                    box.classList.remove('checking');
+                    box.classList.add('divisor');
+                    
+                    addTraceRow(state.currentStep++, `i=${i}`, `i*i=${i*i}`, `${n} % ${i} == 0`, 'Divisor!');
+                    await sleep(state.animationDelay);
+                    showResult(false, `Found divisor ${i}.`);
+                    return;
+                }
+                
+                box.classList.remove('checking');
+                box.classList.add('non-divisor');
+                addTraceRow(state.currentStep++, `i=${i}`, `i*i=${i*i}`, `${n} % ${i} != 0`, 'Continue');
+                await sleep(state.animationDelay);
+            }
+            
+            showResult(true, `No odd divisors found. It's prime!`);
+        }
+
+        async function run6kApproach() {
+            const n = state.number;
+            
+            updateExplanation(`Starting <span class="explanation-highlight">6k±1 Optimization</span> for n = ${n}. All primes > 3 are of form 6k±1.`);
+            
+            highlightCodeLine(4);
+            await sleep(state.animationDelay);
+            
+            if (n <= 3) {
+                showResult(n > 1, `Numbers ≤ 3: only 2 and 3 are prime.`);
+                return;
+            }
+            
+            highlightCodeLine(7);
+            if (n % 2 === 0 || n % 3 === 0) {
+                updateExplanation(`${n} is divisible by 2 or 3. <span class="explanation-highlight">Not prime!</span>`);
+                await sleep(state.animationDelay);
+                showResult(false, `Divisible by 2 or 3.`);
+                return;
+            }
+            
+            animationCanvas.innerHTML = '<div class="number-line" id="numberLine"></div>';
+            const numberLine = document.getElementById('numberLine');
+            
+            updateExplanation(`Now checking numbers of form 6k-1 and 6k+1 (i.e., 5, 7, 11, 13, 17, 19...)`);
+            await sleep(state.animationDelay);
+            
+            highlightCodeLine(11);
+            for (let i = 5; i * i <= n; i += 6) {
+                // Check i (which is 6k-1)
+                const box1 = document.createElement('div');
+                box1.classList.add('number-box');
+                box1.textContent = i;
+                box1.id = `num-${i}`;
+                numberLine.appendChild(box1);
+                
+                // Check i+2 (which is 6k+1)
+                const box2 = document.createElement('div');
+                box2.classList.add('number-box');
+                box2.textContent = i + 2;
+                box2.id = `num-${i+2}`;
+                numberLine.appendChild(box2);
+                
+                await sleep(state.animationDelay / 2);
+                
+                box1.classList.add('checking');
+                updateExplanation(`Checking <span class="explanation-highlight">${i}</span> (form 6k-1)`);
+                await sleep(state.animationDelay);
+                
+                highlightCodeLine(12);
+                if (n % i === 0) {
+                    box1.classList.add('divisor');
+                    addTraceRow(state.currentStep++, `i=${i}`, `6k-1`, `${n} % ${i} == 0`, 'Divisor!');
+                    await sleep(state.animationDelay);
+                    showResult(false, `Found divisor ${i}.`);
+                    return;
+                }
+                box1.classList.remove('checking');
+                box1.classList.add('non-divisor');
+                
+                box2.classList.add('checking');
+                updateExplanation(`Checking <span class="explanation-highlight">${i+2}</span> (form 6k+1)`);
+                await sleep(state.animationDelay);
+                
+                if (n % (i + 2) === 0) {
+                    box2.classList.add('divisor');
+                    addTraceRow(state.currentStep++, `i+2=${i+2}`, `6k+1`, `${n} % ${i+2} == 0`, 'Divisor!');
+                    await sleep(state.animationDelay);
+                    showResult(false, `Found divisor ${i+2}.`);
+                    return;
+                }
+                box2.classList.remove('checking');
+                box2.classList.add('non-divisor');
+                
+                addTraceRow(state.currentStep++, `i=${i},${i+2}`, `6k±1`, 'No divisors', 'Continue');
+            }
+            
+            showResult(true, `No divisors of form 6k±1 found. It's prime!`);
+        }
+
+        async function runRecursiveApproach() {
+            const n = state.number;
+            
+            updateExplanation(`Starting <span class="explanation-highlight">Recursive Approach</span> for n = ${n}. Watch the call stack!`);
+            
+            animationCanvas.innerHTML = '<div class="call-stack" id="callStack"></div>';
+            const callStack = document.getElementById('callStack');
+            
+            highlightCodeLine(1);
+            await sleep(state.animationDelay);
+            
+            const result = await recursiveHelper(n, 2, callStack, 0);
+            
+            await sleep(state.animationDelay);
+            showResult(result === 1, result === 1 ? `Recursion returned 1 (true). It's prime!` : `Recursion returned 0 (false). Not prime.`);
+        }
+
+        async function recursiveHelper(n, i, callStack, depth) {
+            // Create stack frame
+            const frame = document.createElement('div');
+            frame.classList.add('stack-frame', 'active');
+            frame.innerHTML = `
+                <div class="stack-frame-title">isPrime(${n}, ${i})</div>
+                <div class="stack-params">n=${n}, i=${i}, depth=${depth}</div>
+            `;
+            callStack.appendChild(frame);
+            
+            addTraceRow(state.currentStep++, `Call ${depth}`, `n=${n}, i=${i}`, 'Recursion', 'Push');
+            updateExplanation(`<span class="explanation-highlight">Pushed</span> isPrime(${n}, ${i}) onto call stack.`);
+            
+            await sleep(state.animationDelay);
+            
+            highlightCodeLine(2);
+            if (n <= 2) {
+                const result = n === 2 ? 1 : 0;
+                updateExplanation(`Base case: n=${n}. Returning <span class="explanation-highlight">${result}</span>.`);
+                await sleep(state.animationDelay);
+                
+                frame.classList.add('popping');
+                await sleep(300);
+                frame.remove();
+                return result;
+            }
+            
+            highlightCodeLine(4);
+            if (n % i === 0) {
+                updateExplanation(`Found divisor ${i}! Returning <span class="explanation-highlight">0 (false)</span>.`);
+                await sleep(state.animationDelay);
+                
+                frame.classList.add('popping');
+                await sleep(300);
+                frame.remove();
+                return 0;
+            }
+            
+            highlightCodeLine(6);
+            if (i * i > n) {
+                updateExplanation(`${i}² > ${n}. No divisors found. Returning <span class="explanation-highlight">1 (true)</span>.`);
+                await sleep(state.animationDelay);
+                
+                frame.classList.add('popping');
+                await sleep(300);
+                frame.remove();
+                return 1;
+            }
+            
+            highlightCodeLine(8);
+            updateExplanation(`No condition met. Making recursive call with i+1 = ${i+1}.`);
+            await sleep(state.animationDelay);
+            
+            const result = await recursiveHelper(n, i + 1, callStack, depth + 1);
+            
+            frame.classList.add('popping');
+            updateExplanation(`<span class="explanation-highlight">Popped</span> isPrime(${n}, ${i}). Returning ${result}.`);
+            await sleep(300);
+            frame.remove();
+            
+            return result;
+        }
+
+        async function runSieveApproach() {
+            const n = state.number;
+            
+            updateExplanation(`Starting <span class="explanation-highlight">Sieve of Eratosthenes</span> for n = ${n}. We'll find all primes up to ${n}.`);
+            
+            animationCanvas.innerHTML = '<div class="sieve-grid" id="sieveGrid"></div>';
+            const sieveGrid = document.getElementById('sieveGrid');
+            
+            const prime = new Array(n + 1).fill(true);
+            prime[0] = prime[1] = false;
+            
+            // Create grid
+            for (let i = 0; i <= n; i++) {
+                const box = document.createElement('div');
+                box.classList.add('sieve-number');
+                box.textContent = i;
+                box.id = `sieve-${i}`;
+                if (i === 0 || i === 1) {
+                    box.classList.add('crossed');
+                }
+                sieveGrid.appendChild(box);
+            }
+            
+            highlightCodeLine(5);
+            updateExplanation(`Initialized array. 0 and 1 are marked as not prime.`);
+            await sleep(state.animationDelay);
+            
+            highlightCodeLine(9);
+            for (let i = 2; i * i <= n; i++) {
+                if (prime[i]) {
+                    const currentBox = document.getElementById(`sieve-${i}`);
+                    currentBox.classList.add('current-prime');
+                    
+                    updateExplanation(`<span class="explanation-highlight">${i} is prime!</span> Now marking all its multiples as not prime.`);
+                    await sleep(state.animationDelay);
+                    
+                    highlightCodeLine(11);
+                    for (let j = i * i; j <= n; j += i) {
+                        if (prime[j]) {
+                            prime[j] = false;
+                            const box = document.getElementById(`sieve-${j}`);
+                            box.classList.add('crossed');
+                            
+                            addTraceRow(state.currentStep++, `i=${i}, j=${j}`, `prime[${j}]=0`, `${j} = ${i} × ${j/i}`, 'Crossed');
+                            updateExplanation(`Crossing out <span class="explanation-highlight">${j}</span> (multiple of ${i}).`);
+                            await sleep(state.animationDelay / 2);
+                        }
+                    }
+                    
+                    currentBox.classList.remove('current-prime');
+                    currentBox.classList.add('prime');
+                }
+            }
+            
+            // Mark remaining primes
+            for (let i = 2; i <= n; i++) {
+                if (prime[i]) {
+                    const box = document.getElementById(`sieve-${i}`);
+                    if (!box.classList.contains('prime')) {
+                        box.classList.add('prime');
+                    }
+                }
+            }
+            
+            highlightCodeLine(16);
+            await sleep(state.animationDelay);
+            
+            showResult(prime[n], prime[n] ? `${n} is marked as prime in the sieve!` : `${n} was crossed out in the sieve.`);
+        }
+
+        function showResult(isPrime, details) {
+            resultDisplay.classList.remove('hidden');
+            resultText.textContent = isPrime ? '✓ PRIME' : '✗ NOT PRIME';
+            resultText.className = 'result-text ' + (isPrime ? 'prime' : 'not-prime');
+            resultDetails.textContent = details;
+            
+            highlightCodeLine(isPrime ? 17 : 19);
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+</body>
+</html>
